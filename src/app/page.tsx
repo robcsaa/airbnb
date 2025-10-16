@@ -1,102 +1,180 @@
-import Image from "next/image";
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import type { FormEvent } from "react";
+import styles from "./page.module.css";
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+  const pathname = usePathname();
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  const linkClass = (href: string) =>
+    pathname === href
+      ? `${styles.navLink} ${styles.navLinkActive}`
+      : styles.navLink;
+
+  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+
+    form.reset();
+    window.alert("Thanks for reaching out! We'll be in touch shortly.");
+  };
+
+  return (
+    <div className={styles.page}>
+      <header className={styles.header}>
+        <div className={styles.container}>
+          <div className={styles.headerInner}>
+            <div className={styles.brand}>
+              <h1 className={styles.title}>Oasis Airbnb</h1>
+              <p className={styles.tagline}>A calm stay, made simple.</p>
+            </div>
+            <nav className={styles.nav} aria-label="Main navigation">
+              <Link
+                className={linkClass("/")}
+                href="/"
+                aria-current={pathname === "/" ? "page" : undefined}
+              >
+                Home
+              </Link>
+              <Link
+                className={linkClass("/properties")}
+                href="/properties"
+                aria-current={pathname === "/properties" ? "page" : undefined}
+              >
+                Properties
+              </Link>
+              <Link
+                className={linkClass("/contact")}
+                href="/contact"
+                aria-current={pathname === "/contact" ? "page" : undefined}
+              >
+                Contact
+              </Link>
+            </nav>
+          </div>
         </div>
+      </header>
+
+      <main className={styles.main}>
+        <div className={styles.container}>
+          <section className={styles.hero} aria-labelledby="hero-heading">
+            <div className={styles.heroInner}>
+              <span className={styles.heroEyebrow}>Boutique retreat</span>
+              <h2 id="hero-heading" className={styles.heroHeading}>
+                Find your pocket of tranquility in the heart of the desert.
+              </h2>
+              <p className={styles.heroText}>
+                Oasis Airbnb is designed for slow mornings, golden sunsets, and
+                effortless itineraries. Let our team help you plan a stay that
+                feels personal from arrival to departure.
+              </p>
+              <Link className={styles.heroLink} href="/contact">
+                Plan your stay
+              </Link>
+            </div>
+          </section>
+        </div>
+
+        <section className={styles.about} aria-labelledby="about-heading">
+          <div className={styles.container}>
+            <div className={styles.aboutCard}>
+              <h2 id="about-heading" className={styles.aboutHeading}>
+                Warm, thoughtful, and refreshingly simple.
+              </h2>
+              <p className={styles.aboutText}>
+                From curated local partnerships to seamless self check-in, we
+                combine calm interiors with attentive service. Whether you are
+                mapping out a weekend reset or an extended escape, our team
+                handles the details so you can truly unwind.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section
+          id="contact"
+          className={styles.contact}
+          aria-labelledby="contact-heading"
+        >
+          <div className={styles.container}>
+            <div className={styles.contactShell}>
+              <div className={styles.contactCopy}>
+                <h2 id="contact-heading" className={styles.contactHeading}>
+                  Let&apos;s plan your stay.
+                </h2>
+                <p className={styles.contactText}>
+                  Share a few details and our concierge will reach out within one
+                  business day. Prefer email? Write to{" "}
+                  <a href="mailto:hello@oasisairbnb.com">
+                    hello@oasisairbnb.com
+                  </a>
+                  .
+                </p>
+                <div className={styles.details}>
+                  <span>Boutique casita</span>
+                  <span>On-call itinerary support</span>
+                  <span>Sunset patio lounge</span>
+                </div>
+              </div>
+
+              <form className={styles.form} onSubmit={handleSubmit}>
+                <div className={styles.field}>
+                  <label className={styles.label} htmlFor="name">
+                    Name
+                  </label>
+                  <input
+                    className={styles.input}
+                    type="text"
+                    id="name"
+                    name="name"
+                    placeholder="Jamie Rivera"
+                    required
+                  />
+                </div>
+
+                <div className={styles.field}>
+                  <label className={styles.label} htmlFor="email">
+                    Email
+                  </label>
+                  <input
+                    className={styles.input}
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="jamie@example.com"
+                    required
+                  />
+                </div>
+
+                <div className={styles.field}>
+                  <label className={styles.label} htmlFor="message">
+                    Message
+                  </label>
+                  <textarea
+                    className={styles.textarea}
+                    id="message"
+                    name="message"
+                    placeholder="Tell us about your travel plans..."
+                    required
+                  />
+                </div>
+
+                <button type="submit" className={styles.submit}>
+                  Send message
+                </button>
+              </form>
+            </div>
+          </div>
+        </section>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+      <footer className={styles.footer}>
+        <div className={styles.container}>
+          © {new Date().getFullYear()} Oasis Airbnb. Crafted with care for your
+          next escape.
+        </div>
       </footer>
     </div>
   );
