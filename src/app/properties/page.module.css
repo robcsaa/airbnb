@@ -67,6 +67,7 @@
   text-decoration: none;
   transition: background 0.2s ease, transform 0.2s ease, border-color 0.2s ease;
   border: 1px solid transparent;
+  min-height: 2.4rem;
 }
 
 .navLink:hover {
@@ -133,13 +134,13 @@
 }
 
 .heroHeading {
-  font-size: clamp(2.5rem, 7vw, 3.5rem);
+  font-size: clamp(2.3rem, 5.5vw, 3.3rem);
   color: #ffffff;
   margin: 0;
 }
 
 .heroText {
-  font-size: 1.05rem;
+  font-size: clamp(1rem, 2.2vw, 1.1rem);
   color: #f6f8f5;
   margin: 0;
 }
@@ -155,6 +156,7 @@
   text-decoration: none;
   font-weight: 600;
   transition: background 0.2s ease, transform 0.2s ease;
+  width: fit-content;
 }
 
 .heroCta:hover {
@@ -218,12 +220,47 @@
   }
 }
 
-@media (min-width: 768px) {
+@media (max-width: 600px) {
+  .container {
+    padding: 0 1.2rem;
+  }
+
+  .header {
+    padding: 1.2rem 0;
+  }
+
   .nav {
-    gap: 1rem;
+    gap: 0.5rem;
+  }
+
+  .navLink {
+    font-size: 0.78rem;
+    padding: 0.4rem 0.8rem;
+  }
+
+  .hero {
+    margin: 0 1rem;
+    min-height: 320px;
   }
 
   .heroInner {
-    padding: 4rem 0;
+    padding: 2.6rem 1.4rem;
+    gap: 1.1rem;
+  }
+
+  .heroEyebrow {
+    font-size: 0.75rem;
+  }
+
+  .heroHeading {
+    font-size: 2.4rem;
+  }
+
+  .details {
+    padding: 0 1rem;
+  }
+
+  .detailsCard {
+    padding: 2.1rem 1.6rem;
   }
 }
